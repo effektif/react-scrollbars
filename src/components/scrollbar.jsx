@@ -72,7 +72,8 @@ var Scrollbar = React.createClass({
       borderRadius: 4,
       background: 'rgba(0, 0, 0, 0.5)',
       position: 'absolute',
-      opacity: 1
+      opacity: 1,
+      zIndex: 2, 
     };
 
     var stickStyle = {
