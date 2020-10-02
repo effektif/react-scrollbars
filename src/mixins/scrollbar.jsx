@@ -1,247 +1,246 @@
-"use strict";
-var React = require("react");
-var ReactDOM = require("react-dom");
-var classnames = require("classnames");
-var _ = require("lodash-node");
+'use strict'
+var React = require('react')
+var ReactDOM = require('react-dom')
+var classnames = require('classnames')
+var _ = require('lodash-node')
 
 var ScrollbarMixin = {
-  getInitialState: function() {
+  getInitialState: function () {
     return {
       fixedScrollbar: false,
       stickPosition: {
         horizontal: 0,
-        vertical: 0
+        vertical: 0,
       },
       initialScroll: {
         left: 0,
-        top: 0
+        top: 0,
       },
       initialPosition: {
         x: 0,
-        y: 0
+        y: 0,
       },
       axis: null,
       initialMovement: false,
       scrolling: false,
       nativeScrollbarWidth: 0,
-      firstRender: null
-    };
+      firstRender: null,
+    }
   },
 
-  getDefaultProps: function() {
+  getDefaultProps: function () {
     return {
       scrollbarOffset: 2,
       overflowTolerance: 3,
-      scrollbarAffix: false
-    };
+      scrollbarAffix: false,
+    }
   },
 
-  componentDidMount: function() {
-    var scrollbarElement = document.createElement("div");
-    scrollbarElement.style.width = "100px";
-    scrollbarElement.style.height = "100px";
-    scrollbarElement.style.overflow = "scroll";
-    scrollbarElement.style.position = "absolute";
-    scrollbarElement.style.top = "-100%";
-    scrollbarElement.style.left = "-100%";
-    document.body.appendChild(scrollbarElement);
+  componentDidMount: function () {
+    var scrollbarElement = document.createElement('div')
+    scrollbarElement.style.width = '100px'
+    scrollbarElement.style.height = '100px'
+    scrollbarElement.style.overflow = 'scroll'
+    scrollbarElement.style.position = 'absolute'
+    scrollbarElement.style.top = '-100%'
+    scrollbarElement.style.left = '-100%'
+    document.body.appendChild(scrollbarElement)
 
     this.setState(
       {
         nativeScrollbarWidth:
           scrollbarElement.offsetWidth - scrollbarElement.clientWidth,
-        firstRender: true
+        firstRender: true,
       },
-      function() {
-        document.body.removeChild(scrollbarElement);
+      function () {
+        document.body.removeChild(scrollbarElement)
       }
-    );
+    )
   },
 
-  componentDidUpdate: function() {
+  componentDidUpdate: function () {
     if (this.state.firstRender) {
       this.setState({
-        firstRender: false
-      });
+        firstRender: false,
+      })
     }
   },
 
-  getRatio: function() {
+  getRatio: function () {
     if (!this.refs.scrollableContent) {
-      return {};
+      return {}
     }
 
-    var element = ReactDOM.findDOMNode(this.refs.scrollableContent);
+    var element = ReactDOM.findDOMNode(this.refs.scrollableContent)
 
     return {
       horizontal: this.getContentDimensions().width / element.scrollWidth,
-      vertical: this.getContentDimensions().height / element.scrollHeight
-    };
+      vertical: this.getContentDimensions().height / element.scrollHeight,
+    }
   },
 
-  getStickLength: function() {
+  getStickLength: function () {
     if (!this.refs.scrollableContent) {
-      return {};
+      return {}
     }
 
-    var scrollbarLength = this.getScrollbarLength();
-    var horizontal = scrollbarLength.horizontal * this.getRatio().horizontal;
-    var vertical = scrollbarLength.vertical * this.getRatio().vertical;
+    var scrollbarLength = this.getScrollbarLength()
+    var horizontal = scrollbarLength.horizontal * this.getRatio().horizontal
+    var vertical = scrollbarLength.vertical * this.getRatio().vertical
 
     return {
       horizontal: horizontal,
-      vertical: vertical
-    };
+      vertical: vertical,
+    }
   },
 
-  getContentDimensions: function() {
+  getContentDimensions: function () {
     if (!this.refs.scrollableContent) {
-      return {};
+      return {}
     }
 
-    var element = ReactDOM.findDOMNode(this.refs.scrollableContent);
+    var element = ReactDOM.findDOMNode(this.refs.scrollableContent)
 
     return {
       height: element.clientHeight,
       scrollHeight: element.scrollHeight,
       scrollWidth: element.scrollWidth,
-      width: element.clientWidth
-    };
+      width: element.clientWidth,
+    }
   },
 
-  getScrollbarLength: function() {
+  getScrollbarLength: function () {
     var horizontal =
-      this.getContentDimensions().width - this.props.scrollbarOffset * 2;
+      this.getContentDimensions().width - this.props.scrollbarOffset * 2
     var vertical =
-      this.getContentDimensions().height - this.props.scrollbarOffset * 2;
+      this.getContentDimensions().height - this.props.scrollbarOffset * 2
 
     if (this.scrollbarRequired().both) {
-      horizontal = horizontal - this.state.nativeScrollbarWidth;
-      vertical = vertical - this.state.nativeScrollbarWidth;
+      horizontal = horizontal - this.state.nativeScrollbarWidth
+      vertical = vertical - this.state.nativeScrollbarWidth
     }
 
     return {
       horizontal: horizontal,
-      vertical: vertical
-    };
+      vertical: vertical,
+    }
   },
 
-  calculateStickPosition: function(left, top) {
+  calculateStickPosition: function (left, top) {
     var scrollbarRatioWidth =
       this.getScrollbarLength().horizontal /
-      this.getContentDimensions().scrollWidth;
+      this.getContentDimensions().scrollWidth
     var scrollbarRatioHeight =
       this.getScrollbarLength().vertical /
-      this.getContentDimensions().scrollHeight;
+      this.getContentDimensions().scrollHeight
 
     return {
       horizontal: left * scrollbarRatioWidth,
-      vertical: top * scrollbarRatioHeight
-    };
+      vertical: top * scrollbarRatioHeight,
+    }
   },
 
-  scrollbarRequired: function() {
+  scrollbarRequired: function () {
     if (!this.refs.scrollableContent) {
-      return {};
+      return {}
     }
 
-    var dimensions = this.getContentDimensions();
+    var dimensions = this.getContentDimensions()
     var horizontalRequired =
-      dimensions.scrollWidth - this.props.overflowTolerance > dimensions.width;
+      dimensions.scrollWidth - this.props.overflowTolerance > dimensions.width
     var verticalRequired =
-      dimensions.scrollHeight - this.props.overflowTolerance >
-      dimensions.height;
+      dimensions.scrollHeight - this.props.overflowTolerance > dimensions.height
 
     return {
       horizontal: horizontalRequired,
       vertical: verticalRequired,
-      both: horizontalRequired && verticalRequired
-    };
+      both: horizontalRequired && verticalRequired,
+    }
   },
 
-  handleScroll: function(event) {
+  handleScroll: function (event) {
     this.setState({
       stickPosition: this.calculateStickPosition(
         event.target.scrollLeft,
         event.target.scrollTop
-      )
-    });
+      ),
+    })
   },
 
-  handleMouseDown: function(axis, event) {
-    event.preventDefault();
+  handleMouseDown: function (axis, event) {
+    event.preventDefault()
 
     this.setState({
       axis: axis,
       initialPosition: {
         x: event.pageX,
-        y: event.pageY
+        y: event.pageY,
       },
       initialMovement: true,
-      scrolling: true
-    });
+      scrolling: true,
+    })
 
-    document.addEventListener("mousemove", this.handleStickDrag);
-    document.addEventListener("mouseup", this.handleMouseUp);
+    document.addEventListener('mousemove', this.handleStickDrag)
+    document.addEventListener('mouseup', this.handleMouseUp)
   },
 
-  handleMouseUp: function() {
+  handleMouseUp: function () {
     this.setState({
-      scrolling: false
-    });
+      scrolling: false,
+    })
 
-    document.removeEventListener("mousemove", this.handleStickDrag);
-    document.removeEventListener("mouseup", this.handleMouseUp);
+    document.removeEventListener('mousemove', this.handleStickDrag)
+    document.removeEventListener('mouseup', this.handleMouseUp)
   },
 
-  handleStickDrag: function(event) {
+  handleStickDrag: function (event) {
     // TODO: this needs refactoring
-    var origin = this.state.axis === "x" ? "left" : "top";
+    var origin = this.state.axis === 'x' ? 'left' : 'top'
 
-    var initialScrollPosition = this.state.initialScroll[origin];
+    var initialScrollPosition = this.state.initialScroll[origin]
 
     if (this.state.initialMovement) {
       initialScrollPosition =
-        origin === "left"
+        origin === 'left'
           ? ReactDOM.findDOMNode(this.refs.scrollableContent).scrollLeft
-          : ReactDOM.findDOMNode(this.refs.scrollableContent).scrollTop;
-      var initialScroll = _.extend({}, this.state.initialScroll);
-      initialScroll[origin] = initialScrollPosition;
+          : ReactDOM.findDOMNode(this.refs.scrollableContent).scrollTop
+      var initialScroll = _.extend({}, this.state.initialScroll)
+      initialScroll[origin] = initialScrollPosition
 
       this.setState({
         initialScroll: initialScroll,
-        initialMovement: false
-      });
+        initialMovement: false,
+      })
     }
 
     var movement = {
       x: (this.state.initialPosition.x - event.pageX) * -1,
-      y: (this.state.initialPosition.y - event.pageY) * -1
-    };
+      y: (this.state.initialPosition.y - event.pageY) * -1,
+    }
 
     var scaledMovement = {
       x: movement.x / this.getRatio().horizontal,
-      y: movement.y / this.getRatio().vertical
-    };
+      y: movement.y / this.getRatio().vertical,
+    }
 
-    if (this.state.axis === "x") {
+    if (this.state.axis === 'x') {
       ReactDOM.findDOMNode(this.refs.scrollableContent).scrollLeft =
-        initialScrollPosition + scaledMovement.x;
+        initialScrollPosition + scaledMovement.x
     } else {
       ReactDOM.findDOMNode(this.refs.scrollableContent).scrollTop =
-        initialScrollPosition + scaledMovement.y;
+        initialScrollPosition + scaledMovement.y
     }
   },
 
-  handleContentResize: function() {
-    this.forceUpdate();
+  handleContentResize: function () {
+    this.forceUpdate()
   },
 
-  getScrollbarProps: function() {
+  getScrollbarProps: function () {
     if (this.state.firstRender !== false) {
       return {
-        render: false
-      };
+        render: false,
+      }
     }
 
     return {
@@ -252,40 +251,40 @@ var ScrollbarMixin = {
       fixedScrollbar: this.state.fixedScrollbar,
       onMouseDown: this.handleMouseDown,
       showScrollbar: this.scrollbarRequired(),
-      offset: this.props.scrollbarOffset
-    };
+      offset: this.props.scrollbarOffset,
+    }
   },
 
-  containerClass: function() {
+  containerClass: function () {
     // TODO: rename getStyle or something
     return classnames({
       ScrollbarContainer: true,
-      "ScrollbarContainer--scrolling": this.state.scrolling
-    });
+      'ScrollbarContainer--scrolling': this.state.scrolling,
+    })
   },
 
-  scrollbarContainerStyle: function() {
+  scrollbarContainerStyle: function () {
     return {
-      position: "relative",
-      overflow: "hidden"
-    };
+      position: 'relative',
+      overflow: 'hidden',
+    }
   },
 
-  scrollbarContentStyle: function() {
-    var style = {};
+  scrollbarContentStyle: function () {
+    var style = {}
 
     if (this.scrollbarRequired().vertical) {
-      style.paddingRight = this.state.nativeScrollbarWidth;
-      style.overflowY = "scroll";
+      style.paddingRight = this.state.nativeScrollbarWidth
+      style.overflowY = 'scroll'
     }
 
     if (this.scrollbarRequired().horizontal) {
-      style.marginBottom = this.state.nativeScrollbarWidth * -1;
-      style.overflowX = "scroll";
+      style.marginBottom = this.state.nativeScrollbarWidth * -1
+      style.overflowX = 'scroll'
     }
 
-    return style;
-  }
-};
+    return style
+  },
+}
 
-module.exports = ScrollbarMixin;
+module.exports = ScrollbarMixin
