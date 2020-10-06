@@ -1,94 +1,94 @@
-var React = require("react");
-var createClass = require("create-react-class");
-var _ = require("lodash-node");
+var React = require('react')
+var createClass = require('create-react-class')
+var _ = require('lodash-node')
 
 var Scrollbar = createClass({
-  getDefaultProps: function() {
+  getDefaultProps: function () {
     return {
       offset: 2,
       fixedScrollbar: false,
       scrollbarThickness: 10,
       stickLength: {
         horizontal: 100,
-        vertical: 100
+        vertical: 100,
       },
       stickPosition: {
         horizontal: 0,
-        vertical: 0
+        vertical: 0,
       },
       scrollbarLength: {
         horizontal: 100,
-        vertical: 100
+        vertical: 100,
       },
       showScrollbar: {
         horizontal: true,
-        vertical: false
+        vertical: false,
       },
       vertical: true,
-      horizontal: true
-    };
+      horizontal: true,
+    }
   },
 
-  verticalScrollbar: function(style, stickStyle) {
+  verticalScrollbar: function (style, stickStyle) {
     if (this.props.vertical && this.props.showScrollbar.vertical) {
       return (
         <div className="Scrollbar" style={style}>
           <div
             className="Scrollbar-stick"
             style={stickStyle}
-            onMouseDown={this.props.onMouseDown.bind(null, "y")}
+            onMouseDown={this.props.onMouseDown.bind(null, 'y')}
           />
         </div>
-      );
+      )
     } else {
-      return null;
+      return null
     }
   },
 
-  horizontalScrollbar: function(style, stickStyle) {
+  horizontalScrollbar: function (style, stickStyle) {
     if (this.props.horizontal && this.props.showScrollbar.horizontal) {
       return (
         <div style={style}>
           <div
             style={stickStyle}
-            onMouseDown={this.props.onMouseDown.bind(null, "x")}
+            onMouseDown={this.props.onMouseDown.bind(null, 'x')}
           />
         </div>
-      );
+      )
     } else {
-      return null;
+      return null
     }
   },
 
-  render: function() {
+  render: function () {
     if (!this.props.render) {
-      return <div />;
+      return <div />
     }
 
-    var verticalScrollbarHeight;
-    var horizontalScrollbarWidth;
+    var verticalScrollbarHeight
+    var horizontalScrollbarWidth
 
     if (this.props.scrollbarLength.vertical) {
-      verticalScrollbarHeight = this.props.scrollbarLength.vertical;
+      verticalScrollbarHeight = this.props.scrollbarLength.vertical
     }
 
     if (this.props.scrollbarLength.horizontal) {
-      horizontalScrollbarWidth = this.props.scrollbarLength.horizontal;
+      horizontalScrollbarWidth = this.props.scrollbarLength.horizontal
     }
 
     var scrollbarStyle = {
       borderRadius: 4,
-      background: "rgba(0, 0, 0, 0.5)",
-      position: "absolute",
+      background: 'rgba(0, 0, 0, 0.5)',
+      position: 'absolute',
       opacity: 1,
-      zIndex: 2
-    };
+      zIndex: 2,
+    }
 
     var stickStyle = {
-      background: "rgba(255, 255, 255, 0.7)",
-      position: "absolute",
-      borderRadius: 4
-    };
+      background: 'rgba(255, 255, 255, 0.7)',
+      position: 'absolute',
+      borderRadius: 4,
+    }
 
     // TODO: clean this junk UP
 
@@ -96,45 +96,45 @@ var Scrollbar = createClass({
       {
         width: this.props.scrollbarThickness,
         top: this.props.offset,
-        height: verticalScrollbarHeight || "auto",
-        bottom: verticalScrollbarHeight ? "auto" : this.props.offset,
-        right: this.props.offset
+        height: verticalScrollbarHeight || 'auto',
+        bottom: verticalScrollbarHeight ? 'auto' : this.props.offset,
+        right: this.props.offset,
       },
       scrollbarStyle
-    );
+    )
 
     var scrollbarStyleHorizontal = _.extend(
       {
         marginLeft: this.props.offset,
         bottom: this.props.offset,
-        width: horizontalScrollbarWidth || "auto",
-        marginRight: horizontalScrollbarWidth ? "auto" : this.props.offset,
-        height: this.props.scrollbarThickness
+        width: horizontalScrollbarWidth || 'auto',
+        marginRight: horizontalScrollbarWidth ? 'auto' : this.props.offset,
+        height: this.props.scrollbarThickness,
       },
       scrollbarStyle,
       this.props.fixedScrollbar && {
-        position: "fixed"
+        position: 'fixed',
       }
-    );
+    )
 
     var scrollbarStickStyleVertical = _.extend(
       {
         width: this.props.scrollbarThickness,
         height: this.props.stickLength.vertical,
         right: 0,
-        top: this.props.stickPosition.vertical
+        top: this.props.stickPosition.vertical,
       },
       stickStyle
-    );
+    )
 
     var scrollbarStickStyleHorizontal = _.extend(
       {
         height: this.props.scrollbarThickness,
         width: this.props.stickLength.horizontal,
-        left: this.props.stickPosition.horizontal
+        left: this.props.stickPosition.horizontal,
       },
       stickStyle
-    );
+    )
 
     return (
       <div className="Scrollbar-wrapper">
@@ -147,8 +147,8 @@ var Scrollbar = createClass({
           scrollbarStickStyleHorizontal
         )}
       </div>
-    );
-  }
-});
+    )
+  },
+})
 
-module.exports = Scrollbar;
+module.exports = Scrollbar

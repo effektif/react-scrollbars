@@ -10,9 +10,11 @@
     "registry": "https://npm.pkg.github.com/"
   },
   "scripts": {
-    "start": "cd examples && webpack-dev-server --port 9090 --d --hot --inline --progress --colors",
+    "start": "cd docs && webpack-dev-server --port 9090 --d --hot --inline --progress --colors",
     "transpile": "babel src --out-dir lib",
-    "prepublish": "npm run transpile"
+    "prepublish": "npm run transpile",
+    "format": "prettier --write \"src/**/*.js{,x}\"",
+    "lint": "eslint \"src/**/*.js{,x}\""
   },
   "main": "lib/index.js",
   "author": "James Coleman",
@@ -27,9 +29,16 @@
     "babel-core": "^5.8.29",
     "babel-loader": "^5.3.2",
     "css-loader": "^0.9.0",
+    "eslint": "^7.10.0",
+    "eslint-config-prettier": "^6.12.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.21.2",
+    "eslint-plugin-react-hooks": "^4.1.2",
     "html-loader": "^0.2.3",
     "markdown-loader": "^0.1.2",
     "normalize.css": "^3.0.2",
+    "prettier": "2.1.2",
     "react": "^15.0.1",
     "react-dom": "^15.0.1",
     "react-hot-loader": "^1.1.1",
