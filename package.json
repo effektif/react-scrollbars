@@ -11,7 +11,7 @@
   },
   "scripts": {
     "predeploy": "yarn run build",
-    "deploy": "gh-pages --dist dist --branch master",
+    "deploy": "gh-pages --dist docs --branch master",
     "build": "webpack --config docs/webpack.config.js",
     "start": "cd docs && webpack-dev-server --port 9090 --d --hot --inline --progress --colors",
     "transpile": "babel src --out-dir lib",
