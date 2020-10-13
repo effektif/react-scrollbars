@@ -23,3 +23,4 @@ jobs:
           # yarn lint
           yarn format
           yarn prepublish
+          yarn deploy
