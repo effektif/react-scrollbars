@@ -23,3 +23,6 @@ jobs:
           # yarn lint
           yarn format
           yarn prepublish
+          yarn deploy
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
