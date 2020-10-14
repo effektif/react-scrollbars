@@ -22,4 +22,4 @@ jobs:
           yarn install
           # yarn lint
           yarn format
-          yarn prepublish
+          yarn transpile
