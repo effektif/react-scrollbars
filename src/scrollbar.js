@@ -29,8 +29,8 @@ function Scrollbar({
     return null
   }
 
-  var verticalScrollbarHeight
-  var horizontalScrollbarWidth
+  let verticalScrollbarHeight
+  let horizontalScrollbarWidth
 
   if (scrollbarLength.vertical) {
     verticalScrollbarHeight = scrollbarLength.vertical
@@ -42,7 +42,7 @@ function Scrollbar({
 
   // TODO: clean this junk UP
 
-  var scrollbarStyleVertical = Object.extend(
+  const scrollbarStyleVertical = Object.assign(
     {
       width: scrollbarThickness,
       top: offset,
@@ -53,7 +53,7 @@ function Scrollbar({
     scrollbarStyle
   )
 
-  var scrollbarStyleHorizontal = Object.extend(
+  const scrollbarStyleHorizontal = Object.assign(
     {
       marginLeft: offset,
       bottom: offset,
@@ -67,7 +67,7 @@ function Scrollbar({
     }
   )
 
-  var scrollbarStickStyleVertical = Object.extend(
+  const scrollbarStickStyleVertical = Object.assign(
     {
       width: scrollbarThickness,
       height: stickLength.vertical,
@@ -77,7 +77,7 @@ function Scrollbar({
     stickStyle
   )
 
-  var scrollbarStickStyleHorizontal = Object.extend(
+  const scrollbarStickStyleHorizontal = Object.assign(
     {
       height: scrollbarThickness,
       width: stickLength.horizontal,

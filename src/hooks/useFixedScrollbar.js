@@ -34,7 +34,7 @@ function useFixedScrollbar(scrollbarAffix) {
 }
 
 function offsetTop(elm) {
-  var test = elm,
+  let test = elm,
     top = 0
   while (!!test && test.tagName.toLowerCase() !== 'body') {
     top += test.offsetTop
@@ -44,7 +44,7 @@ function offsetTop(elm) {
 }
 
 function viewportHeight() {
-  var de = document.documentElement
+  const de = document.documentElement
   if (!!window.innerWidth) {
     return window.innerHeight
   } else if (de && !isNaN(de.clientHeight)) {

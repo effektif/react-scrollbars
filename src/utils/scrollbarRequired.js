@@ -8,10 +8,10 @@ export default function scrollbarRequired(
     return {}
   }
 
-  var dimensions = getContentDimensions(scrollableContent)
-  var horizontalRequired =
+  const dimensions = getContentDimensions(scrollableContent)
+  const horizontalRequired =
     dimensions.scrollWidth - overflowTolerance > dimensions.width
-  var verticalRequired =
+  const verticalRequired =
     dimensions.scrollHeight - overflowTolerance > dimensions.height
 
   return {

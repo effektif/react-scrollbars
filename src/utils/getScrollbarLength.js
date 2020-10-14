@@ -7,9 +7,9 @@ export default function getScrollbarLength(
   overflowTolerance,
   scrollbarOffset
 ) {
-  var horizontal =
+  let horizontal =
     getContentDimensions(scrollableContent).width - scrollbarOffset * 2
-  var vertical =
+  let vertical =
     getContentDimensions(scrollableContent).height - scrollbarOffset * 2
 
   if (scrollbarRequired(scrollableContent, overflowTolerance).both) {

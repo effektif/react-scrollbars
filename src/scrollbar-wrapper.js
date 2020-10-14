@@ -103,7 +103,7 @@ function scrollbarContentStyle(
   nativeScrollbarWidth,
   overflowTolerance
 ) {
-  var style = {}
+  const style = {}
 
   if (scrollbarRequired(scrollableContent, overflowTolerance).vertical) {
     style.paddingRight = nativeScrollbarWidth

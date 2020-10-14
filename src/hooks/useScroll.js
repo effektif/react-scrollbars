@@ -34,7 +34,7 @@ function useScroll() {
     document.addEventListener('mouseup', handleMouseUp)
 
     return () => {
-      document.removeEventListener(handleMouseUp)
+      document.removeEventListener('mouseup', handleMouseUp)
     }
   }, [])
 
