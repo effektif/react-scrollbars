@@ -1,6 +1,6 @@
 {
   "name": "@signavio/react-scrollbars",
-  "version": "0.3.0",
+  "version": "1.0.0",
   "description": "Stateful scrollbar component for React",
   "keywords": [
     "react-component",
